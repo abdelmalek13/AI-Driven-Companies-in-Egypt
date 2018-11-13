@@ -1,6 +1,6 @@
 import requests,bs4,openpyxl,re
 from openpyxl.utils import get_column_letter
-from openpyxl.styles import PatternFill
+from openpyxl.styles import PatternFill,Font
 
 def writeExcel(names,data):
     wb = openpyxl.Workbook()
@@ -11,8 +11,8 @@ def writeExcel(names,data):
     #         data["Linkedin"],data["Email"],data["Phone"],data['Address']]
     for i in range(len(columns)):
         sheet.cell(row=1,column=i+1).value = columns[i]
-        sheet.cell(row=1,column=i+1).fill = PatternFill(bgColor="0735b6", fill_type = "solid")
-        sheet.cell(row=1,column=i+1).font.color.index = Color.WHITE
+        sheet.cell(row=1,column=i+1).fill = PatternFill(bgColor="000000FF", fill_type = "solid")
+        sheet.cell(row=1,column=i+1).font = Font(color="00FFFFFF")
 
     dims={"Name":[],"Interests":[],"Link":[],"Facebook":[],
             "Twitter":[],"Linkedin":[],"Email":[],"Phone":[],
@@ -25,7 +25,7 @@ def writeExcel(names,data):
     for i in range(len(columns)):
         sheet.column_dimensions[get_column_letter(i+1)].width = max(dims[columns[i]])
 
-    wb.freeze_panes=sheet['A2']
+    sheet.freeze_panes=sheet['B2']
     # for column_cells in worksheet.columns:
     # length = max(len(as_text(cell.value)) for cell in column_cells)
     # worksheet.column_dimensions[column_cells[0].column].width = length
